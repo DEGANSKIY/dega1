@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Результаты поиска</title>
+</head>
+<body>
+    <h1>Результаты поиска</h1>
+    {% if application %}
+        <h2>Заявка {{ application.application_number }}</h2>
+        <p>Тип организации: {{ application.org_type }}</p>
+        <p>Модель: {{ application.model }}</p>
+        <p>Описание проблемы: {{ application.problem_description }}</p>
+        <p>Имя клиента: {{ application.client_name }}</p>
+        
+        <p>Номер телефона: {{ application.phone_number }}</p>
+        <p>Статус: {{ application.status }}</p>
+        <p>Ответственный: {{ application.responsible }}</p>
+        <p>Стадия выполнения: {{ application.stage_of_executio }}</p>
+        <p>Комментарии:  {{ application.comments }}</p>
+        <p>Информаци о заказанных запчастях:  {{ application.ordered_parts }}</p>  
+
+    {% else %}
+        {% if error %}
+            <p>{{ error }}</p>
+        {% else %}
+            <p>Заявка не найдена</p>
+        {% endif %}
+    {% endif %}
+</body>
+</html>

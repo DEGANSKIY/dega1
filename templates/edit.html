@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Редактирование заявки</title>
+</head>
+<body>
+  <h1>Редактирование заявки {{ application.application_number }}</h1>
+  {% if error %}
+    <p style="color: red; ">{{ error }}</p>
+  {% endif %}
+
+  <form action="{{ url_for('edit_application', application_id=application.id) }}" method="POST">
+    <label for="org_type">Вид оргтехники:</label><br>
+    <input type="text" name="org_type" id="org_type" value="{{ application.org_type }}" required><br><br>
+
+    <label for="model">Модель:</label><br>
+    <input type="text" name="model" id="model" value="{{ application.model }}" required><br><br>
+
+    <label for="problem_description">Описание проблемы:</label><br>
+    <textarea name="problem_description" id="problem_description" required>{{ application.problem_description }}</textarea><br><br>
+
+    <label for="client_name">ФИО клиента:</label><br>
+    <input type="text" name="client_name" id="client_name" value="{{ application.client_name }}" required><br><br>
+
+    <label for="phone_number">Номер телефона:</label><br>
+    <input type="text" name="phone_number" id="phone_number" value="{{ application.phone_number }}" required><br><br>
+
+    <label for="status">Статус:</label><br>
+    <select name="status" id="status">
+      <option value="Новая заявка" {% if application.status == 'Новая заявка' %}selected{% endif %}>Новая заявка</option>
+      <option value="В процессе ремонта" {% if application.status == 'В процессе ремонта' %}selected{% endif %}>В процессе ремонта</option>
+      <option value="Завершена" {% if application.status == 'Завершена' %}selected{% endif %}>Завершена</option>
+    </select><br><br>
+
+    <label for="responsible">Ответственный:</label><br>
+    <input type="text" name="responsible" id="responsible" value="{{ application.responsible }}"><br><br>
+
+    <label for="stage_of_executio">Этап выполнения:</label><br>
+    <select name="stage_of_executio" id="stage_of_executio">
+      <option value="Готова к выдаче" {% if application.stage_of_executio == 'Готова к выдаче' %}selected{% endif %}>Готова к выдаче</option>
+      <option value="В процессе ремонта" {% if application.stage_of_executio == 'В процессе ремонта' %}selected{% endif %}>В процессе ремонта</option>
+      <option value="Ожидание запчастей" {% if application.stage_of_executio == 'Ожидание запчастей' %}selected{% endif %}>Ожидание запчастей</option>
+    </select><br><br>
+
+    <label for="comments">Комментарии:</label><br>
+    <textarea name="comments" id="comments">{{ application.comments }}</textarea><br><br>
+
+    <label for="ordered_parts">Заказанные запчасти:</label><br>
+    <textarea name="ordered_parts" id="ordered_parts">{{ application.ordered_parts }}</textarea><br><br>
+
+    <script>
+      // Функция для вывода уведомления
+      function showStatusChangeNotification() {
+        alert("Статус заявки изменен!");
+      }
+
+      // Получаем все элементы select для статуса
+      const statusSelects = document.querySelectorAll('select[name="status"]');
+
+      statusSelects.forEach(select => {
+        select.addEventListener('change', showStatusChangeNotification);
+      });
+    </script>
+
+    <input type="submit" value="Сохранить изменения">
+  </form>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Статистика заявок</title>
+</head>
+<body>
+  <h1>Статистика заявок</h1>
+
+  <p>Количество выполненных заявок: {{ completed_applications_count }}</p>
+  <p>Среднее время выполнения заявки (в часах): {{ average_completion_time_hours }}</p>
+  
+  <h2>Статистика по типам неисправностей</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Описание проблемы</th>
+        <th>Количество</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for problem, count in problem_counts.items() %}
+      <tr>
+        <td>{{ problem }}</td>
+        <td>{{ count }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
